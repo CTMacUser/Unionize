@@ -28,3 +28,5 @@ project : requirements
 #run test_test.cpp ;
 
 run ../example/super_union_basics.cpp ;
+
+compile-fail super_union_fail_test.cpp ;
