@@ -16,3 +16,6 @@ a.out
 
 # System files
 .DS_Store*
+
+# Build directories
+bin
