@@ -7,6 +7,23 @@
 
 //  See <http://www.boost.org/libs/unions/> for the library's home page.
 
+/** \file
+    \brief  Base declarations of traits classes for extended-union types.
+
+    \author  Daryle Walker
+
+    \version  0.5
+
+    \copyright  Boost Software License, version 1.0
+
+    Contains the declarations for `variant_element` and `variant_size`,
+    analogues of `std::tuple_element` and `std::tuple_size`.  There are no
+    specializations for any extended-union types; the creators of those types,
+    or interested users, are expected to write those.  There are partial
+    specializations for cv-qualified extended-union types, so the users only
+    have to make specializations for thier directly-created types.
+ */
+
 #ifndef BOOST_UNIONS_VARIANT_TRAITS_HPP
 #define BOOST_UNIONS_VARIANT_TRAITS_HPP
 
@@ -30,7 +47,7 @@ namespace unions
     this class template in order to return the answers.  It's up to each class
     to determine its policy for types that appear in the list more than once.
     The meta-function is expected to have a single member, called \"type\",
-    that is a type alias of the appropriate type.  The internal type
+    that is a type-alias of the appropriate variant type.  The internal `type`
     shouldn't be defined when the `Index` is out of bounds.
 
     \tparam Index        The zero-based index of which variant type to return.

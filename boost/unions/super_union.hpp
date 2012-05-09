@@ -7,6 +7,22 @@
 
 //  See <http://www.boost.org/libs/unions/> for the library's home page.
 
+/** \file
+    \brief  A union with its member types specified in the template parameters.
+
+    \author  Daryle Walker
+
+    \version  0.5
+
+    \copyright  Boost Software License, version 1.0
+
+    Contains the declaration and definitions of `super_union`, a union
+    class-template that gets the types of its variant members through a template
+    parameter list.  Instead of using the implementation-defined member names to
+    get at a variant member, custom access function templates are provided.
+    There are also specializations of some traits classes for `super_union`.
+ */
+
 #ifndef BOOST_UNIONS_SUPER_UNION_HPP
 #define BOOST_UNIONS_SUPER_UNION_HPP
 
@@ -43,6 +59,11 @@ namespace unions
       defined only if it both is not deleted and is trivial for **every**
       variant type.  Otherwise, that special member function is deleted unless
       it's user-provided.
+    - Since this union will not provide any user-declared constructors, nor will
+      it use member initializers, you can use aggregate initialization on
+      objects of this type.  (You can simulate default construction, even if the
+      offical one is deleted, as long as the first listed variant type is
+      default-constructible.)
 
     Also, any class type can contain a pointer (or multi-level pointer) to its
     own type as a member.  You cannot do that here because any reference to
@@ -67,7 +88,8 @@ union super_union;
 
 //! Specialization of `super_union` when the type list is empty
 /** The base case contains no variant members.  It has degenerate versions of
-    status-indicating members.
+    status-indicating members.  You can create objects of this type with
+    default construction and/or an empty aggregate initialization list.
  */
 template < >
 union super_union<>
