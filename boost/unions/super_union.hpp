@@ -95,8 +95,8 @@ template < >
 union super_union<>
 {
     //! Returns a list of the union's variant members' types.
-    static  auto optioned_types() -> std::array<std::type_info const *, 0>
-    { return {}; }
+    static  auto variant_types() -> std::array<std::type_info const *, 0>
+    { return { {} }; }
 };
 
 //! Specialization of `super_union` when the type list is not empty
@@ -117,9 +117,9 @@ union super_union<Head, Tail...>
 {
     //! Returns a list of the union's variant members' types.
     static
-    auto  optioned_types()
+    auto  variant_types()
       -> std::array<std::type_info const *, 1 + sizeof...(Tail)>
-    { return { &typeid(Head), &typeid(Tail)... }; }
+    { return { {&typeid(Head), &typeid(Tail)...} }; }
 
     Head                  data;
     super_union<Tail...>  rest;

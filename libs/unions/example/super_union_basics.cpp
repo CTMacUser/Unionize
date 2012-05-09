@@ -8,8 +8,10 @@
 
 #include "boost/unions/super_union.hpp"  // for boost::unions::super_union
 
+#include <array>     // for std::array
 #include <iostream>  // for std::cout
-#include <ostream>   // for std::endl
+#include <ostream>   // for std::basic_ostream, endl
+#include <typeinfo>  // for std::type_info
 
 
 // The union we'll we working with...
@@ -35,6 +37,27 @@ intdouble_t  make_double()
 
     gett<double>( result ) = 3.75;
     return result;
+}
+
+// Reporters
+template < typename Ch, class Tr, typename InIter >
+std::basic_ostream<Ch, Tr> &
+print_type_list( std::basic_ostream<Ch, Tr> &o, InIter b, InIter e )
+{
+    o << "Listed types: ";
+    if ( b == e )
+    {
+        o << "(None)";
+    }
+    else
+    {
+        o << (**b).name();
+        while ( ++b != e )
+        {
+            o << ", " << (*b)->name();
+        }
+    }
+    return o << std::endl;
 }
 
 
@@ -64,6 +87,13 @@ int  main()
     cout << "And another constant print: " << get<1>(test2) << '\n';
     cout << "Print immediate through index: " << get<1>(make_double()) << '\n';
     cout << "And another time: " << get<0>(make_int()) << endl;
+
+    boost::unions::super_union<>  test3{};
+    auto const                    types1 = intdouble_t::variant_types();
+    auto const                    types2 = decltype(test3)::variant_types();
+
+    print_type_list( cout, types1.begin(), types1.end() );
+    print_type_list( cout, types2.begin(), types2.end() );
 
     return 0;
 }
