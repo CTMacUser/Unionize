@@ -11,6 +11,9 @@ run in C++11 mode.  The library has (so far):
    template parameters.  You can ignore having to recall the name (or name
    path) for each variant member and just address them by type.  There is
    an option to address them via type index.
+-  `tagged_union`, a `union` that works like `super_union` except it also
+   keeps track of which variant member is current.  Addressing members must
+   be done through the custom access functions.
 -  `variant_size` and `variant_element`, analogs to the meta-functions
    `std::tuple_size` and `std::tuple_element` that support the `std::tuple`
    (and `std::pair` and `std::array`) class templates.  These class templates
