@@ -128,14 +128,14 @@ union super_union<Head, Tail...>
 
 //  Type-tagged union metadata template specialization definitions  ----------//
 
-//! Specialization of `variant_element` for empty `super_union`s.
+//! Specialization of `variant_element` for `super_union`s, base case.
 template < typename Head, typename ...Tail >
 struct variant_element< 0, super_union<Head, Tail...> >
 {
     typedef Head  type;
 };
 
-//! Specialization of `variant_element` for non-empty `super_union`s.
+//! Specialization of `variant_element` for `super_union`s, recursive case.
 template < std::size_t Index, typename Head, typename ...Tail >
 struct variant_element< Index, super_union<Head, Tail...> >
 {
